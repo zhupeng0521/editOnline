@@ -1,2 +1,13 @@
-/.idea/
-/.idea/
+# IDEA
+.idea
+*.iml
+
+# Eclipse
+.classpath
+.project
+rebel.xml
+
+# 忽略目录，
+# 忽略target目录
+/.settings
+target

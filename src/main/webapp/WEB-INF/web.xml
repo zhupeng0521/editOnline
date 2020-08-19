@@ -29,7 +29,24 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.docx</url-pattern>
+        <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.gif</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.cab</url-pattern>
+        <url-pattern>*.doc</url-pattern>
+        <url-pattern>*.pdf</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.exe</url-pattern>
+        <url-pattern>*.zip</url-pattern>
+        <url-pattern>*.eot</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.tff</url-pattern>
+    </servlet-mapping>
     <!-- 处理POST提交乱码问题 -->
     <filter>
         <filter-name>encoding</filter-name>

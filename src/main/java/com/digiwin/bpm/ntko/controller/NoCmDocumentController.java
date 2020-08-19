@@ -1,13 +1,19 @@
 package com.digiwin.bpm.ntko.controller;
 
 import com.digiwin.bpm.ntko.entity.NoCmDocumentEntity;
+import com.digiwin.bpm.ntko.service.AttachmentService;
 import com.digiwin.bpm.ntko.service.NoCmDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author：zhupeng
@@ -15,19 +21,52 @@ import org.springframework.web.bind.annotation.RestController;
  * @Desc：TODO
  */
 @RestController
-@RequestMapping("/api/demo")
+@RequestMapping("/api/attach")
 public class NoCmDocumentController {
 
     @Autowired
     private NoCmDocumentService service;
 
+    @Autowired
+    private AttachmentService attachmentService;
 
-    @GetMapping(path = "/{id}")
-    public NoCmDocumentEntity get(@PathVariable String id) {
-        NoCmDocumentEntity noc = service.getById("1604bf0ce6ca10048933a060bcfcf38b");
+    @GetMapping(path = "/OID/{OID}")
+    public NoCmDocumentEntity getByOID(@PathVariable String OID) {
+        NoCmDocumentEntity noc = service.getById(OID);
         System.out.println(noc);
         return noc;
     }
 
+    @GetMapping(path = "/id/{id:.+}")
+    public NoCmDocumentEntity getById(@PathVariable String id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        List<NoCmDocumentEntity> noCmDocumentEntities = this.service.getByMap(map);
+        System.out.println(noCmDocumentEntities);
+        return noCmDocumentEntities.get(0);
+    }
 
+    /**
+     * 下载
+     * @param id
+     * @param response
+     * @param request
+     */
+    @GetMapping(path = "/down/{id:.+}")
+    public void download(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) {
+        attachmentService.downloadFile(id,response,request);
+    }
+
+    /**
+     * 上传
+     * @param file
+     * @param id
+     * @param request
+     * @return
+     */
+    @PostMapping("/upload/{id:.+}")
+    public String upload(@RequestParam(value = "fileUpload",required = false) MultipartFile file, @PathVariable String id,  HttpServletRequest request){
+        attachmentService.uploadFile(file,id,request);
+        return null;
+    }
 }
