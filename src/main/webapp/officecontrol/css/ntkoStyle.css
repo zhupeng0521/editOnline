@@ -223,7 +223,7 @@ body {
 
 .top_content {
 	padding: 10px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	color: #535351;
 	font-size: 14px;
 	font-weight: bold;

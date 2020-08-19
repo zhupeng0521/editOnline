@@ -2,10 +2,6 @@ package com.digiwin.bpm.ntko.repository.impl;
 
 import com.digiwin.bpm.ntko.entity.NoCmDocumentEntity;
 import com.digiwin.bpm.ntko.repository.NoCmDocumentRepository;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @Desc：TODO
  */
 @Repository
-public class NoCmDocumentRepositoryImpl extends BaseRepositoryImpl<NoCmDocumentEntity> implements NoCmDocumentRepository {
+public class NoCmDocumentRepositoryImpl extends BaseCurdRepositoryImpl<NoCmDocumentEntity> implements NoCmDocumentRepository {
 
     @Override
     public NoCmDocumentEntity getById(String id) {

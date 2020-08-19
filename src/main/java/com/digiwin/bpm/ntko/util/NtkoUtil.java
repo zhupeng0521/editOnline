@@ -4,7 +4,7 @@ public class NtkoUtil {
     public static String resolvingPath(String physicalName){
         String jbossPath = System.getProperty("jboss.home.dir");
         jbossPath = jbossPath.replaceAll("\\\\","\\\\\\\\");
-        jbossPath = "F:\\BPM5821\\wildfly-15.0.0.Final";
+//        jbossPath = "F:\\BPM5821\\wildfly-15.0.0.Final";
         String basePath = jbossPath +"\\modules\\NaNa\\DocServer\\document\\attachment\\";
 
         int physicalNameLength = physicalName.length();
@@ -18,7 +18,6 @@ public class NtkoUtil {
             sliceData = physicalName.substring(2, physicalNameLength - 2);
         }
         String[] sliceArr = sliceData.split("");
-
         String str1 = "";
         String str3 = "";
         for (int i = 0; i < sliceArr.length; i++) {
@@ -30,9 +29,6 @@ public class NtkoUtil {
                 str3 = "";
             }
         }
-        //b3,bb,91,5x,17,2a,60,ef,da,fx,x7,fd,
-        //  \fd\x7\fx\da\ef\60\2a\17\5x\91\bb\b3
-
         String[] arr4 = str1.split(",");
         //定义临时变量temp来进行数组的交换
         for (int i = 0; i < arr4.length / 2; i++) {
@@ -40,12 +36,9 @@ public class NtkoUtil {
             arr4[i] = arr4[arr4.length - 1 - i];
             arr4[arr4.length - 1 - i] = temp;
         }
-        System.out.println(arr4);
-
         for (int i = 0; i < arr4.length; i++) {
             basePath = basePath + arr4[i] + "\\";
         }
-        System.out.println(basePath);
         return basePath;
     }
 }

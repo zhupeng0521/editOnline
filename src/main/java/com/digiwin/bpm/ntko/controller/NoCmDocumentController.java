@@ -37,36 +37,43 @@ public class NoCmDocumentController {
         return noc;
     }
 
+    /**
+     * 根据文件id获取文件名称
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/id/{id:.+}")
-    public NoCmDocumentEntity getById(@PathVariable String id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
+    public String getById(@PathVariable String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         List<NoCmDocumentEntity> noCmDocumentEntities = this.service.getByMap(map);
         System.out.println(noCmDocumentEntities);
-        return noCmDocumentEntities.get(0);
+        return noCmDocumentEntities.get(0).getLogicalName();
     }
 
     /**
      * 下载
+     *
      * @param id
      * @param response
      * @param request
      */
     @GetMapping(path = "/down/{id:.+}")
     public void download(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) {
-        attachmentService.downloadFile(id,response,request);
+        attachmentService.downloadFile(id, response, request);
     }
 
     /**
      * 上传
+     *
      * @param file
      * @param id
      * @param request
      * @return
      */
     @PostMapping("/upload/{id:.+}")
-    public String upload(@RequestParam(value = "fileUpload",required = false) MultipartFile file, @PathVariable String id,  HttpServletRequest request){
-        attachmentService.uploadFile(file,id,request);
-        return null;
+    public void upload(@RequestParam(value = "fileUplaod", required = false) MultipartFile file, @PathVariable String id, HttpServletRequest request) {
+        attachmentService.uploadFile(file, id, request);
     }
 }

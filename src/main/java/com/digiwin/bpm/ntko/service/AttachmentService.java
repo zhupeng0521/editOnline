@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface AttachmentService {
 
-    String downloadFile(String fileId, HttpServletResponse response, HttpServletRequest request);
+    void downloadFile(String fileId, HttpServletResponse response, HttpServletRequest request);
 
     void uploadFile(MultipartFile file, String fileId, HttpServletRequest request);
 }

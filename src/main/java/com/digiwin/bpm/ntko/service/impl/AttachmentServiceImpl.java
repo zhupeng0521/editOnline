@@ -22,11 +22,14 @@ import java.util.*;
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
 
-    @Autowired
-    private NoCmDocumentService noCmDocumentService;
+    private final NoCmDocumentService noCmDocumentService;
+
+    public AttachmentServiceImpl(NoCmDocumentService noCmDocumentService) {
+        this.noCmDocumentService = noCmDocumentService;
+    }
 
     @Override
-    public String downloadFile(String fileId, HttpServletResponse response, HttpServletRequest request) {
+    public void downloadFile(String fileId, HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         map.put("id", fileId);
         List<NoCmDocumentEntity> noCmDocumentEntities = this.noCmDocumentService.getByMap(map);
@@ -76,9 +79,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                     }
                 }
             }
-            return entity.getLogicalName();
         }
-        return null;
     }
 
     @Override

@@ -7,5 +7,5 @@ import com.digiwin.bpm.ntko.entity.NoCmDocumentEntity;
  * @Date：2020/8/18 23:33
  * @Desc：TODO
  */
-public interface NoCmDocumentRepository extends BaseRepository<NoCmDocumentEntity> {
+public interface NoCmDocumentRepository extends BaseCurdRepository<NoCmDocumentEntity> {
 }
