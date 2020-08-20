@@ -123,7 +123,7 @@ function openhtml1(cmd) {
     //alert("ntkoed:"+ntkoed);
     if (ntkoed) {
         //打开插件
-        ntkoBrowser.openWindow("/EditAttachment/editindex.html?cmd=" + cmd,false,"鼎捷软件股份有限公司BPM产品","0047AFB981A0D8E891BDBB0E5E48F526F238E370");
+        ntkoBrowser.openWindow("/EditAttachment/editindex.html?cmd=" + cmd,false,"在线编辑","0670F32568DC510CAFC75138B6EBF9ECB2361313");
     } else {
         //没有安装插件，这跳转到下载插件页面
         window.location.href = "/EditAttachment/exeindex.html";

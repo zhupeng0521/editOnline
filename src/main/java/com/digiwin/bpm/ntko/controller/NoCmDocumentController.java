@@ -33,7 +33,6 @@ public class NoCmDocumentController {
     @GetMapping(path = "/OID/{OID}")
     public NoCmDocumentEntity getByOID(@PathVariable String OID) {
         NoCmDocumentEntity noc = service.getById(OID);
-        System.out.println(noc);
         return noc;
     }
 
