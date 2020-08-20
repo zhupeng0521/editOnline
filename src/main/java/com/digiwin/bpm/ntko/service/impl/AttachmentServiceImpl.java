@@ -4,7 +4,6 @@ import com.digiwin.bpm.ntko.entity.NoCmDocumentEntity;
 import com.digiwin.bpm.ntko.service.AttachmentService;
 import com.digiwin.bpm.ntko.service.NoCmDocumentService;
 import com.digiwin.bpm.ntko.util.NtkoUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +15,7 @@ import java.util.*;
 /**
  * @author：zhupeng
  * @Date：2020/8/19 09:52
- * @Desc：TODO
+ * @Desc：附件服务，上传、下载
  */
 
 @Service
@@ -28,6 +27,12 @@ public class AttachmentServiceImpl implements AttachmentService {
         this.noCmDocumentService = noCmDocumentService;
     }
 
+    /**
+     * 下载附件
+     * @param fileId
+     * @param response
+     * @param request
+     */
     @Override
     public void downloadFile(String fileId, HttpServletResponse response, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
@@ -37,10 +42,8 @@ public class AttachmentServiceImpl implements AttachmentService {
             NoCmDocumentEntity entity = noCmDocumentEntities.get(0);
             String physicalName = entity.getPhysicalName();
             String filaPath = NtkoUtil.resolvingPath(physicalName);
-            System.out.println(filaPath);
             String fileName = entity.getPhysicalName() + "." + entity.getExtentionName();
             filaPath += fileName;
-            System.out.println(filaPath);
             try {
                 request.setCharacterEncoding("UTF-8");
             } catch (UnsupportedEncodingException e) {
@@ -82,6 +85,12 @@ public class AttachmentServiceImpl implements AttachmentService {
         }
     }
 
+    /**
+     * 上传附件
+     * @param file
+     * @param fileId
+     * @param request
+     */
     @Override
     public void uploadFile(MultipartFile file, String fileId, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
@@ -91,9 +100,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             NoCmDocumentEntity entity = noCmDocumentEntities.get(0);
             String physicalName = entity.getPhysicalName();
             String filaPath = NtkoUtil.resolvingPath(physicalName);
-            System.out.println(filaPath);
             String fileName = entity.getPhysicalName() + "." + entity.getExtentionName();
-            System.out.println(fileName);
             try {
                 request.setCharacterEncoding("utf-8");
             } catch (UnsupportedEncodingException e) {

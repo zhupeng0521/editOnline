@@ -163,10 +163,45 @@
       <version>${lombok.Version}</version>
       <scope>provided</scope>
     </dependency>
+
+
+    <!-- xmlbeans -->
+    <dependency>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/xerces/xerces -->
+    <!-- <dependency>
+         <groupId>xerces</groupId>
+         <artifactId>xerces</artifactId>
+         <version>2.4.0</version>
+     </dependency>-->
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/xalan/xalan -->
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.2</version>
+    </dependency>
+    <!-- 防止 wildfly 部署失败使用
+    参考-1:https://bbs.csdn.net/topics/394353876
+    参考-2:https://developer.jboss.org/thread/276373?start=15&tstart=0
+    -->
+    <dependency>
+      <groupId>org.reactivestreams</groupId>
+      <artifactId>reactive-streams</artifactId>
+      <version>1.0.3</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>editOnline</finalName>
+    <finalName>EditAttachment</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

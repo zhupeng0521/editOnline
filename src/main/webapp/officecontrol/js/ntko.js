@@ -18,9 +18,9 @@ function init(cmd) {
         ntko.AddDocTypePlugin(".pdf", "PDF.NtkoDocument", "4.0.2.0", "officecontrol/ntkooledocall.cab", 51, true);//版增加对于PDF文件的支持
     }
     ntko.isoptforopenspeed = true; //设置下载本地打开，打开文档快一些
-    ntko.OpenFromURL("/editOnline/api/attach/down/" + fileId); //下载文档加载
+    ntko.OpenFromURL("/EditAttachment/api/attach/down/" + fileId); //下载文档加载
     //加载标题
-    $.get("/editOnline/api/attach/id/" + fileId, function (result) {
+    $.get("/EditAttachment/api/attach/id/" + fileId, function (result) {
         document.getElementById("title").innerHTML = result;
     });
     showSave();//控制显示保存按钮
@@ -42,7 +42,7 @@ function showSave() {
 
 // 保存文档
 function savefile() {
-    ntko.SaveToUrl("/editOnline/api/attach/upload/" + fileId, "fileUplaod");
+    ntko.SaveToUrl("/EditAttachment/api/attach/upload/" + fileId, "fileUplaod");
     ntko.ActiveDocument.Saved = true;
     alert("文件上传成功！");
 }

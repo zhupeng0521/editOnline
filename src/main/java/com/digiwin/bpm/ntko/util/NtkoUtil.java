@@ -4,7 +4,7 @@ public class NtkoUtil {
     public static String resolvingPath(String physicalName){
         String jbossPath = System.getProperty("jboss.home.dir");
         jbossPath = jbossPath.replaceAll("\\\\","\\\\\\\\");
-//        jbossPath = "F:\\BPM5821\\wildfly-15.0.0.Final";
+//        jbossPath = "E:\\BPM\\BPM5841\\wildfly-15.0.0.Final";
         String basePath = jbossPath +"\\modules\\NaNa\\DocServer\\document\\attachment\\";
 
         int physicalNameLength = physicalName.length();
