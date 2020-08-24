@@ -47,7 +47,6 @@ public class NoCmDocumentController {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         List<NoCmDocumentEntity> noCmDocumentEntities = this.service.getByMap(map);
-        System.out.println(noCmDocumentEntities);
         return noCmDocumentEntities.get(0).getLogicalName();
     }
 

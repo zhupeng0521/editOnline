@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body onload="load()">
+<button id="clickNtko">123456</button>
+
+<script type="text/javascript" src="/EditAttachment/officecontrol/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="/EditAttachment/officecontrol/js/ntkobackground.js"></script>
+<script type="text/javascript">
+    $("#clickNtko").on("click",function () {
+        var idx = window.location.href.indexOf("?");
+        var cmd = window.location.href.substring(idx)
+        //判断本地是否安装插件
+        var ntkoed = ntkoBrowser.ExtensionInstalled();
+        console.log("ntkoed:"+ntkoed);
+        if (ntkoed) {
+            //打开插件
+            ntkoBrowser.openWindow("/EditAttachment/editindex.html" + cmd,false,"在线编辑","0670F32568DC510CAFC75138B6EBF9ECB2361313");
+        } else {
+            //没有安装插件，这跳转到下载插件页面
+            window.location.href = "/EditAttachment/exeindex.html";
+        }
+        window.close();
+    });
+    function load(){
+        //下面两种方法效果是一样的
+        document.getElementById("clickNtko").click();
+    }
+</script>
+</body>
+</html>

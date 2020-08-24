@@ -42,6 +42,7 @@
         <url-pattern>*.zip</url-pattern>
         <url-pattern>*.eot</url-pattern>
         <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.woff2</url-pattern>
         <url-pattern>*.tff</url-pattern>
     </servlet-mapping>
     <!-- 处理POST提交乱码问题 -->

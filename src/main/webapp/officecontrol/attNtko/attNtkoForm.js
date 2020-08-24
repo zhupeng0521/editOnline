@@ -104,25 +104,25 @@ function isPerForm() {
 }
 
 // 2019.7.2  祝朋 根据附件Id查询附件的物理名，逻辑名，附件扩展名
-var databaseCfgId = "EFGP";
 var editUser = "";//用户名
 var attCode = ""; //编辑还是查看状态
 function modifybtn(fileId, userName, attachmentCode) {
     editUser = userName;
     attCode = attachmentCode;
     var basePath = fileId + "@+" + editUser + "@+" + attCode;
-    openhtml1(encodeURI(basePath));
+    openHtml(encodeURI(basePath));
 }
 
 
 // 2019.7.2  祝朋 调用软航插件接口
-function openhtml1(cmd) {
-    //alert(cmd);
+function openHtml(cmd) {
     //判断本地是否安装插件
     var ntkoed = ntkoBrowser.ExtensionInstalled();
-    //alert("ntkoed:"+ntkoed);
     if (ntkoed) {
         //打开插件
+        //方式一：先打开open.html页面,规避验证登录接口，未果。IE可以，谷歌不行
+        // window.open("/EditAttachment/open.html?cmd=" + cmd);
+        //方式二：直接在页面打开ntko插件，打开正常，但谷歌会请求BPM登录接口，暂时未调整，后续修改。
         ntkoBrowser.openWindow("/EditAttachment/editindex.html?cmd=" + cmd,false,"在线编辑","0670F32568DC510CAFC75138B6EBF9ECB2361313");
     } else {
         //没有安装插件，这跳转到下载插件页面

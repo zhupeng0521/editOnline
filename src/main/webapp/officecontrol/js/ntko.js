@@ -92,5 +92,6 @@ function closeWindow() {
         }
     } else {
         window.close();
+
     }
 }
