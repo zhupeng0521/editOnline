@@ -19,9 +19,14 @@ function editAttachment(userName) {
                 }
                 //是office，禁止下载，去掉href
                 if (isOffice(id)) {
-                    var a = tr[i].cells[0].lastElementChild;
+                    //20201103 BPM5841附件gird样式调整，进行对应修改
+                    var a = tr[i].cells[0].getElementsByTagName("a")[0];
                     a.removeAttribute("href");
                     a.setAttribute("style", "color: #7e7a7a;text-decoration: none;font-size: 14px;font-family: auto;line-height: 21px;");
+                    var element = tr[i].cells[0].lastElementChild;
+                    if(element.localName !== 'a' && element.localName === 'i'){
+                        element.setAttribute('style','display: none');
+                    }
                 }
                 var td = document.createElement("td");
                 if (isOffice(id) && isTemp(id)) {
