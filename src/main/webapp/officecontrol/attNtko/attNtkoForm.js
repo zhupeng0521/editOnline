@@ -2,43 +2,45 @@
 var attCode = 1; //附加标识判断是否是 1 FULL_CONTROL 还是 其他
 //修改附件Grid列表Attachment
 function editAttachment(userName) {
-    var table = document.getElementById("Attachment_shell");
-    if (table != null) {
-        var test = table.childNodes;
-        var tr = table.getElementsByTagName("tr");
-        for (var i = 0; i < tr.length; i++) {
-            if (i == 0) {
-                var th = document.createElement("th");
-                th.innerHTML = "在线操作";
-                tr[i].appendChild(th);
-            } else {
-
-                var id = tr[i].getAttribute("id");
-                if (id == null) {
-                    return;
-                }
-                //是office，禁止下载，去掉href
-                if (isOffice(id)) {
-                    //20201103 BPM5841附件gird样式调整，进行对应修改
-                    var a = tr[i].cells[0].getElementsByTagName("a")[0];
-                    a.removeAttribute("href");
-                    a.setAttribute("style", "color: #7e7a7a;text-decoration: none;font-size: 14px;font-family: auto;line-height: 21px;");
-                    var element = tr[i].cells[0].lastElementChild;
-                    if(element.localName !== 'a' && element.localName === 'i'){
-                        element.setAttribute('style','display: none');
-                    }
-                }
-                var td = document.createElement("td");
-                if (isOffice(id) && isTemp(id)) {
-                    if (isFullControl() == 1) {
-                        td.innerHTML = " <i class='fa fa-edit' title='修改档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
-                    } else {
-                        td.innerHTML = " <i class='fa fa-eye' title='查看档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
-                    }
+    if (activityOID !== "") {
+        var table = document.getElementById("Attachment_shell");
+        if (table != null) {
+            var test = table.childNodes;
+            var tr = table.getElementsByTagName("tr");
+            for (var i = 0; i < tr.length; i++) {
+                if (i == 0) {
+                    var th = document.createElement("th");
+                    th.innerHTML = "在线操作";
+                    tr[i].appendChild(th);
                 } else {
-                    td.innerHTML = "<i class='fa fa-ban ' title='禁止操作'  style='font-size:20px; color:red; cursor:pointer;'></i> ";
+
+                    var id = tr[i].getAttribute("id");
+                    if (id == null) {
+                        return;
+                    }
+                    //是office，禁止下载，去掉href
+                    if (isOffice(id)) {
+                        //20201103 BPM5841附件gird样式调整，进行对应修改
+                        var a = tr[i].cells[0].getElementsByTagName("a")[0];
+                        a.removeAttribute("href");
+                        a.setAttribute("style", "color: #7e7a7a;text-decoration: none;font-size: 14px;font-family: auto;line-height: 21px;");
+                        var element = tr[i].cells[0].lastElementChild;
+                        if (element.localName !== 'a' && element.localName === 'i') {
+                            element.setAttribute('style', 'display: none');
+                        }
+                    }
+                    var td = document.createElement("td");
+                    if (isOffice(id) && isTemp(id)) {
+                        if (isFullControl() == 1) {
+                            td.innerHTML = " <i class='fa fa-edit' title='修改档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
+                        } else {
+                            td.innerHTML = " <i class='fa fa-eye' title='查看档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
+                        }
+                    } else {
+                        td.innerHTML = "<i class='fa fa-ban ' title='禁止操作'  style='font-size:20px; color:red; cursor:pointer;'></i> ";
+                    }
+                    tr[i].appendChild(td);
                 }
-                tr[i].appendChild(td);
             }
         }
     }
@@ -128,7 +130,7 @@ function openHtml(cmd) {
         //方式一：先打开open.html页面,规避验证登录接口，未果。IE可以，谷歌不行
         // window.open("/EditAttachment/open.html?cmd=" + cmd);
         //方式二：直接在页面打开ntko插件，打开正常，但谷歌会请求BPM登录接口，暂时未调整，后续修改。
-        ntkoBrowser.openWindow("/EditAttachment/editindex.html?cmd=" + cmd,false,"在线编辑","0670F32568DC510CAFC75138B6EBF9ECB2361313");
+        ntkoBrowser.openWindow("/EditAttachment/editindex.html?cmd=" + cmd, false, "在线编辑", "0670F32568DC510CAFC75138B6EBF9ECB2361313");
     } else {
         //没有安装插件，这跳转到下载插件页面
         window.location.href = "/EditAttachment/exeindex.html";
