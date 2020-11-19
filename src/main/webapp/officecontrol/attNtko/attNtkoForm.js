@@ -31,7 +31,7 @@ function editAttachment(userName) {
                     }
                     var td = document.createElement("td");
                     if (isOffice(id) && isTemp(id)) {
-                        if (isFullControl() == 1) {
+                        if (isFullControl() == 1 && isPerForm()) {
                             td.innerHTML = " <i class='fa fa-edit' title='修改档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
                         } else {
                             td.innerHTML = " <i class='fa fa-eye' title='查看档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
