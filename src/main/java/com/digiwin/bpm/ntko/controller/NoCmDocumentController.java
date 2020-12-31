@@ -47,7 +47,11 @@ public class NoCmDocumentController {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         List<NoCmDocumentEntity> noCmDocumentEntities = this.service.getByMap(map);
+        if (noCmDocumentEntities.isEmpty()) {
+            throw new RuntimeException("文件未找到~");
+        }
         return noCmDocumentEntities.get(0).getLogicalName();
+
     }
 
     /**

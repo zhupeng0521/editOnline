@@ -2,45 +2,44 @@
 var attCode = 1; //附加标识判断是否是 1 FULL_CONTROL 还是 其他
 //修改附件Grid列表Attachment
 function editAttachment(userName) {
-    if (activityOID !== "") {
-        var table = document.getElementById("Attachment_shell");
-        if (table != null) {
-            var test = table.childNodes;
-            var tr = table.getElementsByTagName("tr");
-            for (var i = 0; i < tr.length; i++) {
-                if (i == 0) {
-                    var th = document.createElement("th");
-                    th.innerHTML = "在线操作";
-                    tr[i].appendChild(th);
-                } else {
 
-                    var id = tr[i].getAttribute("id");
-                    if (id == null) {
-                        return;
-                    }
-                    //是office，禁止下载，去掉href
-                    if (isOffice(id)) {
-                        //20201103 BPM5841附件gird样式调整，进行对应修改
-                        var a = tr[i].cells[0].getElementsByTagName("a")[0];
-                        a.removeAttribute("href");
-                        a.setAttribute("style", "color: #7e7a7a;text-decoration: none;font-size: 14px;font-family: auto;line-height: 21px;");
-                        var element = tr[i].cells[0].lastElementChild;
-                        if (element.localName !== 'a' && element.localName === 'i') {
-                            element.setAttribute('style', 'display: none');
-                        }
-                    }
-                    var td = document.createElement("td");
-                    if (isOffice(id) && isTemp(id)) {
-                        if (isFullControl() == 1 && isPerForm()) {
-                            td.innerHTML = " <i class='fa fa-edit' title='修改档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
-                        } else {
-                            td.innerHTML = " <i class='fa fa-eye' title='查看档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
-                        }
-                    } else {
-                        td.innerHTML = "<i class='fa fa-ban ' title='禁止操作'  style='font-size:20px; color:red; cursor:pointer;'></i> ";
-                    }
-                    tr[i].appendChild(td);
+    var table = document.getElementById("Attachment_shell");
+    if (table != null) {
+        var test = table.childNodes;
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            if (i == 0) {
+                var th = document.createElement("th");
+                th.innerHTML = "在线操作";
+                tr[i].appendChild(th);
+            } else {
+
+                var id = tr[i].getAttribute("id");
+                if (id == null) {
+                    return;
                 }
+                //是office，禁止下载，去掉href
+                if (isOffice(id)) {
+                    //20201103 BPM5841附件gird样式调整，进行对应修改
+                    var a = tr[i].cells[0].getElementsByTagName("a")[0];
+                    a.removeAttribute("href");
+                    a.setAttribute("style", "color: #7e7a7a;text-decoration: none;font-size: 14px;font-family: auto;line-height: 21px;");
+                    var element = tr[i].cells[0].lastElementChild;
+                    if (element.localName !== 'a' && element.localName === 'i') {
+                        element.setAttribute('style', 'display: none');
+                    }
+                }
+                var td = document.createElement("td");
+                if (isOffice(id) && isTemp(id)) {
+                    if (isFullControl() == 1 && isPerForm()) {
+                        td.innerHTML = " <i class='fa fa-edit' title='修改档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
+                    } else {
+                        td.innerHTML = " <i class='fa fa-eye' title='查看档案' onclick='javaScript:modifybtn(&apos;" + id + "&apos;,&apos;" + userName + "&apos;,&apos;" + attCode + "&apos;)' style='font-size:20px; color:#3c92dc; cursor:pointer;'></i>";
+                    }
+                } else {
+                    td.innerHTML = "<i class='fa fa-ban ' title='禁止操作'  style='font-size:20px; color:red; cursor:pointer;'></i> ";
+                }
+                tr[i].appendChild(td);
             }
         }
     }
@@ -48,13 +47,17 @@ function editAttachment(userName) {
 
 // 判断此关卡附件是否有FULL_CONTROL权限。
 function isFullControl() {
-    //formId表单代号,系统全局变量；EFGP是SQLCommand代号
-    var tDConn_EFGP = new DataSource(formId, "EFGP");
-    var sql = "SELECT FormFieldAccessDefinition.formFieldAccessControl  FROM ActivityDefinition JOIN FormFieldAccessDefinition ON ActivityDefinition.formFieldAccessDefinitionOID= FormFieldAccessDefinition.OID  WHERE ActivityDefinition.OID= '" + activityOID + "'";
-    var tResult = tDConn_EFGP.query(sql);
-    var flag1 = tResult[0][0].indexOf("FULL_CONTROL");
-    if (flag1 != -1) { //编辑
-        attCode = 1;
+    if (activityOID !== "") {
+        //formId表单代号,系统全局变量；EFGP是SQLCommand代号
+        var tDConn_EFGP = new DataSource(formId, "EFGP");
+        var sql = "SELECT FormFieldAccessDefinition.formFieldAccessControl  FROM ActivityDefinition JOIN FormFieldAccessDefinition ON ActivityDefinition.formFieldAccessDefinitionOID= FormFieldAccessDefinition.OID  WHERE ActivityDefinition.OID= '" + activityOID + "'";
+        var tResult = tDConn_EFGP.query(sql);
+        var flag1 = tResult[0][0].indexOf("FULL_CONTROL");
+        if (flag1 != -1) { //编辑
+            attCode = 1;
+        } else {
+            attCode = 2;
+        }
     } else {
         attCode = 2;
     }
